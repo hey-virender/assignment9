@@ -1,0 +1,49 @@
+<%- include("partials/header") %>
+
+<section class="py-5 text-center bg-light">
+  <div class="container">
+    <h1 class="display-5 fw-bold text-primary">Welcome to Secrets</h1>
+    <p class="lead text-muted mb-4">
+      A simple yet secure authentication demo using Node.js, Express, MongoDB,
+      and EJS.
+    </p>
+    <% if (!isAuthenticated) { %>
+    <div class="d-flex justify-content-center gap-3">
+      <a href="/register" class="btn btn-primary px-4">Register</a>
+      <a href="/login" class="btn btn-outline-primary px-4">Login</a>
+    </div>
+    <% } else { %>
+    <a href="/secrets" class="btn btn-success px-4">View Secrets</a>
+    <% } %>
+  </div>
+</section>
+
+<section class="py-5 bg-white">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-4 mb-4">
+        <div class="p-4 shadow-sm rounded bg-light h-100">
+          <h4 class="text-primary">User Authentication</h4>
+          <p>Secure login and registration flow using encrypted passwords.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="p-4 shadow-sm rounded bg-light h-100">
+          <h4 class="text-primary">Cookie Sessions</h4>
+          <p>Session management with secure HTTP-only cookies.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="p-4 shadow-sm rounded bg-light h-100">
+          <h4 class="text-primary">Clean UI</h4>
+          <p>
+            Built with Bootstrap 5 and custom styles for a clean, responsive
+            layout.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include("partials/footer") %>
