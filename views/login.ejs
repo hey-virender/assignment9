@@ -7,7 +7,9 @@
       <div class="mb-3">
         <label for="email" class="form-label">Email address</label>
         <input type="email" name="email" id="email" class="form-control" required
-               autocomplete="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+       autocomplete="email"
+       pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+
         <div class="invalid-feedback">Please enter a valid email address.</div>
       </div>
 
