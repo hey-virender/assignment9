@@ -7,16 +7,16 @@
       <div class="mb-3">
         <label for="email" class="form-label">Email address</label>
         <input
-          type="email"
+          type="text"
           name="email"
           id="email"
           class="form-control"
           required
           autocomplete="email"
-          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
         />
-
-        <div class="invalid-feedback">Please enter a valid email address.</div>
+        <div class="invalid-feedback" id="emailFeedback">
+          Please enter a valid email (e.g., name@example.com).
+        </div>
       </div>
 
       <div class="mb-3 position-relative">
@@ -68,7 +68,6 @@
 <%- include('./partials/footer') %>
 
 <script>
-  // Show/hide passwords
   document
     .getElementById("showPasswords")
     .addEventListener("change", function () {
@@ -78,14 +77,25 @@
       });
     });
 
-  // Email and password validation
   document
     .getElementById("registerForm")
     .addEventListener("submit", function (e) {
       const form = this;
-      const email = form.email;
+      const emailInput = form.email;
       const password = form.password;
       const confirmPassword = form.confirmPassword;
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      let isValid = true;
+
+      if (!emailRegex.test(emailInput.value.trim())) {
+        isValid = false;
+        emailInput.classList.add("is-invalid");
+        emailInput.classList.remove("is-valid");
+      } else {
+        emailInput.classList.remove("is-invalid");
+        emailInput.classList.add("is-valid");
+      }
 
       if (password.value !== confirmPassword.value) {
         confirmPassword.setCustomValidity("Passwords do not match");
@@ -93,7 +103,7 @@
         confirmPassword.setCustomValidity("");
       }
 
-      if (!form.checkValidity()) {
+      if (!form.checkValidity() || !isValid) {
         e.preventDefault();
         e.stopPropagation();
       }

@@ -6,24 +6,34 @@
     <form action="/login" method="POST" id="loginForm" novalidate>
       <div class="mb-3">
         <label for="email" class="form-label">Email address</label>
-        <input type="email" name="email" id="email" class="form-control" required
-       autocomplete="email"
-       pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
-
+        <input
+          type="text"
+          name="email"
+          id="email"
+          class="form-control"
+          required
+          autocomplete="email"
+        />
         <div class="invalid-feedback">Please enter a valid email address.</div>
       </div>
 
       <div class="mb-3 position-relative">
         <label for="password" class="form-label">Password</label>
-        <input type="password" name="password" id="password" class="form-control" required
-               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" autocomplete="current-password">
+        <input
+          type="password"
+          name="password"
+          id="password"
+          class="form-control"
+          required
+          autocomplete="current-password"
+        />
         <div class="invalid-feedback">
           Password must be at least 6 characters, with uppercase, lowercase, and number.
         </div>
       </div>
 
       <div class="form-check mb-3">
-        <input class="form-check-input" type="checkbox" id="showPassword">
+        <input class="form-check-input" type="checkbox" id="showPassword" />
         <label class="form-check-label" for="showPassword">
           Show Password
         </label>
@@ -41,19 +51,35 @@
 <%- include('./partials/footer') %>
 
 <script>
-  
-  document.getElementById('showPassword').addEventListener('change', function () {
-    const pwField = document.getElementById('password');
-    pwField.type = this.checked ? 'text' : 'password';
+  document.getElementById("showPassword").addEventListener("change", function () {
+    const pwField = document.getElementById("password");
+    pwField.type = this.checked ? "text" : "password";
   });
 
- 
-  document.getElementById('loginForm').addEventListener('submit', function (e) {
+  document.getElementById("loginForm").addEventListener("submit", function (e) {
     const form = this;
+    const email = form.email;
+    const password = form.password;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+
+    if (!emailRegex.test(email.value)) {
+      email.setCustomValidity("Invalid email format");
+    } else {
+      email.setCustomValidity("");
+    }
+
+    if (!passwordRegex.test(password.value)) {
+      password.setCustomValidity("Invalid password format");
+    } else {
+      password.setCustomValidity("");
+    }
+
     if (!form.checkValidity()) {
       e.preventDefault();
       e.stopPropagation();
     }
-    form.classList.add('was-validated');
+
+    form.classList.add("was-validated");
   });
 </script>
